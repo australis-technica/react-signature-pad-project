@@ -1,0 +1,6 @@
+test/
+lib/
+built/
+sql/
+.secrets/
+node_modules/

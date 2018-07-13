@@ -1,0 +1,43 @@
+{
+  "name": "@australis/react-signature-pad",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "test": "jest --env=node",
+    "build": "tsc -p .",
+    "clean": "rimraf lib",
+    "rebuild": "npm run clean && npm run build",
+    "watch": "tsc -p . --watch",
+    "tsc-version": "tsc --version"
+  },
+  "keywords": [],
+  "author": "daniel@australis-technica.com",
+  "license": "MIT",
+  "devDependencies": {   
+    "jest": "22.4.3",
+    "typescript": "2.9.2"
+  },
+  "dependencies": {},
+  "jest": {
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "tsconfig.test.json"
+      }
+    },
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/test/.*|(\\.|/))(test|spec)\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "@australis/signature-pad-demo-backend",
+  "private": true,
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {   
+    
+  },
+  "devDependencies": {    
+    "typescript": "2.9.2"
+  },
+  "scripts": {
+    "test": "jest --env=node",
+    "build": "tsc -p .",
+    "clean": "rimraf build",
+    "rebuild": "npm run clean && npm run build",
+    "watch": "tsc -p . --watch"
+  }
+}

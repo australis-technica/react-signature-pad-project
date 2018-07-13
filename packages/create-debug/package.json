@@ -1,0 +1,43 @@
+{
+  "name": "@australis/create-debug",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "test": "jest --env=node",
+    "build": "tsc -p .",
+    "clean": "rimraf lib",
+    "rebuild": "npm run clean && npm run build",
+    "watch": "tsc -p . --watch"
+  },
+  "keywords": [],
+  "author": "daniel@australis-technica.com",
+  "license": "MIT",  
+  "jest": {
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "tsconfig.test.json"
+      }
+    },
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/test/.*|(\\.|/))(test|spec)\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  },
+  "dependencies": {
+    
+  },
+  "devDependencies": {    
+    "typescript": "2.9.2"
+  }
+}

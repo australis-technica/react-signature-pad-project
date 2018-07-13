@@ -1,7 +1,7 @@
 {
   "name": "@australis/react-signature-pad-project",
   "version": "1.0.0",
-  "description": "React Signature Pad Project",
+  "description": "React Signature Pad",
   "private": true,
   "main": "index.js",
   "scripts": {

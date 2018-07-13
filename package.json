@@ -17,8 +17,6 @@
   "license": "ISC",
   "workspaces": [
     "packages/create-debug",
-    "packages/tiny-sql",
-    "packages/data-url-to-buffer",
     "packages/react-signature-pad",
     "packages/signature-pad-demo",
     "packages/signature-pad-demo-backend"

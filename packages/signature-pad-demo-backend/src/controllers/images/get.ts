@@ -16,7 +16,9 @@ export default (async function get(req, res, next) {
         if (!image) {
             return next(Object.assign(new Error("not found"), { code: 404 }));
         }
-        return res.json(image.img);
+        res.setHeader("Content-Type", "image/png");
+        // image.img.toString("base64")
+        return res.send(image.img);
     } catch (error) {
         return next(error);
     } finally {

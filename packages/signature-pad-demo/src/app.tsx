@@ -8,6 +8,7 @@ import api from "./api";
 import InputBox from "./input-box";
 import * as classNames from "classnames";
 import Preview from "./preview";
+import { isStringNotEmpty } from "@australis/signature-pad-demo/src/util";
 
 const App =
   /** */
@@ -15,6 +16,7 @@ const App =
     /** */
     onSend = async () => {
       try {
+        this.setBusy(true);
         this.setError(undefined);
         const { id } = await api.add({ img: this.props.imageSrcScaled });
         this.setState({
@@ -22,6 +24,23 @@ const App =
         });
       } catch (error) {
         this.setError(error);
+      } finally {
+        this.setBusy(false);
+      }
+    };
+    onGet = async () => {
+      try {
+        this.setBusy(true);
+        this.setError(undefined);
+        const res = await api.get(this.props.imageSrcResultID);
+        this.setState({
+          // imageSrcResultID: id,
+          imageSrcResultImg: res
+        });
+      } catch (error) {
+        this.setError(error);
+      } finally {
+        this.setBusy(false);
       }
     };
     /** */
@@ -47,6 +66,10 @@ const App =
       this.props.dispatch(action);
     }
     /** */
+    setBusy = (busy: boolean) => {
+      this.setState({ busy });
+    };
+    /** */
     setError = (e: Error | string) => {
       if (typeof e === "string") {
         return this.setState({ error: e });
@@ -70,7 +93,18 @@ const App =
         <div className="App">
           <header className="App-header">
             <h1 className="App-title">Signature Pad Demo</h1>
-            <div className="error">{this.props.error}</div>
+            <div className={classNames("row")}>
+              {this.props.busy && (
+                <div className={classNames("busy", "margin-horizontal")}>
+                  <span>Busy ...</span>
+                </div>
+              )}
+              {this.props.error && (
+                <div className={classNames("error", "margin-horizontal")}>
+                  Error: {this.props.error}
+                </div>
+              )}
+            </div>
           </header>
           <div className="wrap">
             <InputBox
@@ -80,10 +114,16 @@ const App =
               onChange={e => this.setState({ showSignature: e.target.checked })}
             />
             <InputBox
-              label={"Show Preview (scaled)"}
+              label={"imageSrcScaled"}
               type={"checkbox"}
-              checked={this.props.showPreview}
-              onChange={e => this.setState({ showPreview: e.target.checked })}
+              checked={this.props.imageSrcScaledShow}
+              onChange={e => this.setState({ imageSrcScaledShow: e.target.checked })}
+            />
+            <InputBox
+              label={"imageSrcResultImgShow"}
+              type={"checkbox"}
+              checked={this.props.imageSrcResultImgShow}
+              onChange={e => this.setState({ imageSrcResultImgShow: e.target.checked })}
             />
             <InputBox
               label={
@@ -184,14 +224,21 @@ const App =
           </div>
           <div className="row">
             <button
-              className={classNames("margin2")}
-              children={"RESET"}
+              className={classNames("button", "margin2")}
+              children={"reset"}
               onClick={this.resetState}
             />
             <button
-              className={classNames("margin2", "button-accent")}
+              className={classNames("button ", "button-accent", "margin2")}
               onClick={this.onSend}
-              children={"SEND"}
+              children={"send"}
+              disabled={!isStringNotEmpty(this.props.imageSrcScaled)}
+            />
+            <button
+              className={classNames("button ", "button-accent", "margin2")}
+              onClick={this.onGet}
+              children={"get"}
+              disabled={!isStringNotEmpty(this.props.imageSrcResultID)}
             />
           </div>
           <div className={classNames("box-one")}>
@@ -212,17 +259,17 @@ const App =
             )}
             <Preview
               id="img-src-scaled"
-              show={this.props.showPreview}
+              show={this.props.imageSrcScaledShow}
               width={this.props.canvasWidth}
               height={this.props.canvasHeight}
               imgSrc={this.props.imageSrcScaled}
             />
             <Preview
-              id="img-src-backend"
-              show={this.props.showPreview}
+              id="imageSrcResultImg"
+              show={this.props.imageSrcResultImgShow}
               width={this.props.canvasWidth}
               height={this.props.canvasHeight}
-              imgSrc={this.props.imageSrcScaled}
+              imgSrc={this.props.imageSrcResultImg}
             />
           </div>
 
@@ -230,10 +277,12 @@ const App =
             className={classNames("row", "margin1")}
             style={{ fontSize: "14px" }}
           >
-            <span>
-              <strong>ImageSrcResultID: </strong>
-              {this.props.imageSrcResultID}
-            </span>
+            {this.props.imageSrcResultID && (
+              <span>
+                <strong>ImageSrcResultID: </strong>
+                {this.props.imageSrcResultID}
+              </span>
+            )}
           </div>
         </div>
       );

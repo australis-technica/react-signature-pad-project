@@ -7,7 +7,12 @@ export default (async function get(req, res, next) {
     let connection: Connection;
     try {
         connection = await sqlConnection();
-        const image = await repos.images.get(connection, req.params.id);
+        let image : { img: any };
+        if(req.params.id === "last") {
+            image = await repos.images.get(connection, req.params.id);
+        } else {
+            image = await repos.images.get(connection, req.params.id);
+        }        
         if (!image) {
             return next(Object.assign(new Error("not found"), { code: 404 }));
         }

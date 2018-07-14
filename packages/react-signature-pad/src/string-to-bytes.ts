@@ -24,8 +24,3 @@ export default function stringToBytes(str: string) {
     }    
     return re; // byte[]
 }
-
-export function getImageSrcBase64Length(imageDataURL: string) {
-    var base64String = imageDataURL.split(",")[1];
-    return base64String.length;    
-}

@@ -5,6 +5,7 @@ import { Dispatch, Action } from "redux";
 import appStore, { AppState } from "./app-store";
 import ImageSize from "./image-size";
 import api from "./api";
+import InputBox from "./input-box";
 
 const App =
   /** */
@@ -43,6 +44,7 @@ const App =
     dispatch<A extends Action>(action: A) {
       this.props.dispatch(action);
     }
+    /** */
     setError = (e: Error | string) => {
       if (typeof e === "string") {
         return this.setState({ error: e });
@@ -59,14 +61,12 @@ const App =
     resetState = () => {
       this.dispatch(appStore.resetState());
     };
-
     /** */
     public render() {
       const { showSignature } = this.props;
       return (
         <div className="App">
           <header className="App-header">
-            {/* <img src={logo} className="App-logo" alt="logo" /> */}
             <h1 className="App-title">Signature Pad Demo</h1>
             <div style={{ color: "red" }}>{this.props.error}</div>
           </header>
@@ -78,129 +78,88 @@ const App =
               margin: "1rem"
             }}
           >
-            <div style={{ margin: "0.5rem" }}>
-              <label
-                htmlFor="show-signature"
-                children="Show Signature"
-                style={{ margin: "0.5rem" }}
-              />
-              <input
-                id="show-signature"
-                type={"checkbox"}
-                checked={showSignature}
-                onChange={e =>
-                  this.setState({ showSignature: e.target.checked })
-                }
-                style={{ margin: "0.5rem" }}
-              />
-            </div>
+            <InputBox
+              label={"Show Signature"}
+              type={"checkbox"}
+              checked={showSignature}
+              onChange={e => this.setState({ showSignature: e.target.checked })}
+            />
+            <InputBox
+              label={
+                <span>
+                  Dot Size {this.props.dotSize <= 0.01 ? " (velocity)" : "px"}
+                </span>
+              }
+              min={0}
+              max={5}
+              step={0.1}
+              type="number"
+              value={this.props.dotSize}
+              onChange={e => this.setState({ dotSize: Number(e.target.value) })}
+            />
+            <InputBox
+              label="Dot Min Width (not-working-yet)"
+              value={this.props.dotSizeMinWidth}
+              type="number"
+              min={0}
+              max={1.5}
+              step={0.1}
+              onChange={e =>
+                this.setState({ dotSizeMinWidth: Number(e.target.value) })
+              }
+            />
+            <InputBox
+              label="Dot Max Width (not-working-yet)"
+              type="number"
+              value={this.props.dotSizeMaxWidth}
+              min={0}
+              max={1.5}
+              step={0.1}
+              onChange={e =>
+                this.setState({ dotSizeMaxWidth: Number(e.target.value) })
+              }
+            />
+            <InputBox
+              type="text"
+              label="Pen Color"
+              value={this.props.penColor}
+              onChange={e => this.setState({ penColor: e.target.value })}
+            />
+            <InputBox
+              label="canvas width"
+              type="number"
+              min={1}
+              max={128}
+              step={1}
+              value={this.props.canvasWidth}
+              onChange={e =>
+                this.setState({ canvasWidth: Number(e.target.value) })
+              }
+            />
 
-            <div style={{ margin: "0.5rem" }}>
-              <label style={{ margin: "0.5rem" }}>
-                Dot Size {this.props.dotSize <= 0.01 ? " (velocity)" : "px"}
-              </label>
-              <input
-                min={0}
-                max={5}
-                step={0.1}
-                type="number"
-                value={this.props.dotSize}
-                onChange={e =>
-                  this.setState({ dotSize: Number(e.target.value) })
-                }
-                style={{ margin: "0.5rem" }}
-              />
-            </div>
+            <InputBox
+              label={"Canvas Height"}
+              type="number"
+              min={1}
+              max={128}
+              step={1}
+              value={this.props.canvasHeight}
+              onChange={e =>
+                this.setState({ canvasHeight: Number(e.target.value) })
+              }
+            />
 
-            <div style={{ margin: "0.5rem" }}>
-              <label
-                children={"Dot Min Width (not-working-yet)"}
-                style={{ margin: "0.5rem" }}
-              />
-              <input
-                value={this.props.dotSizeMinWidth}
-                type="number"
-                min={0}
-                max={1.5}
-                step={0.1}
-                onChange={e =>
-                  this.setState({ dotSizeMinWidth: Number(e.target.value) })
-                }
-                style={{ margin: "0.5rem" }}
-              />
-            </div>
-
-            <div style={{ margin: "0.5rem" }}>
-              <label
-                children={"Dot Max Width (not-working-yet)"}
-                style={{ margin: "0.5rem" }}
-              />
-              <input
-                type="number"
-                value={this.props.dotSizeMaxWidth}
-                min={0}
-                max={1.5}
-                step={0.1}
-                onChange={e =>
-                  this.setState({ dotSizeMaxWidth: Number(e.target.value) })
-                }
-                style={{ margin: "0.5rem" }}
-              />
-            </div>
-
-            <div style={{ margin: "0.5rem" }}>
-              <label children={"Pen Color"} style={{ margin: "0.5rem" }} />
-              <input
-                value={this.props.penColor}
-                onChange={e => this.setState({ penColor: e.target.value })}
-                style={{ margin: "0.5rem" }}
-              />
-            </div>
-
-            <div style={{ margin: "0.5rem" }}>
-              <label children={"Canvas Width"} style={{ margin: "0.5rem" }} />
-              <input
-                type="number"
-                min={1}
-                max={128}
-                step={1}
-                value={this.props.canvasWidth}
-                onChange={e =>
-                  this.setState({ canvasWidth: Number(e.target.value) })
-                }
-                style={{ margin: "0.5rem" }}
-              />
-            </div>
-
-            <div style={{ margin: "0.5rem" }}>
-              <label children={"Canvas Height"} style={{ margin: "0.5rem" }} />
-              <input
-                type="number"
-                min={1}
-                max={128}
-                step={1}
-                value={this.props.canvasHeight}
-                onChange={e =>
-                  this.setState({ canvasHeight: Number(e.target.value) })
-                }
-                style={{ margin: "0.5rem" }}
-              />
-            </div>
-
-            <div style={{ margin: "0.5rem" }}>
-              <label children={"Resize Ratio"} style={{ margin: "0.5rem" }} />
-              <input
-                type="number"
-                min={0.1}
-                max={10}
-                step={0.1}
-                value={this.props.resizeRatio}
-                onChange={e =>
-                  this.setState({ resizeRatio: Number(e.target.value) })
-                }
-                style={{ margin: "0.5rem" }}
-              />
-            </div>
+            <InputBox
+              label={"Resize Ratio"}
+              type="number"
+              min={0.1}
+              max={10}
+              step={0.1}
+              value={this.props.resizeRatio}
+              onChange={e =>
+                this.setState({ resizeRatio: Number(e.target.value) })
+              }
+            />
 
             <div style={{ margin: "1rem" }}>
               <label style={{ margin: "0.5rem" }}>
@@ -274,9 +233,10 @@ const App =
               margin: "1rem"
             }}
           >
-            <ImageSize id="source" imageSrc={this.props.imageSrc} />
-            <ImageSize id="translated" imageSrc={this.props.imageSrcScaled} />
+            <ImageSize id="image-src" imageSrc={this.props.imageSrc} />
+            <ImageSize id="image-src-scaled" imageSrc={this.props.imageSrcScaled} />
           </div>
+
           <div style={{ fontSize: "14px" }}>
             <span>
               <strong>ImageSrcResultID: </strong>

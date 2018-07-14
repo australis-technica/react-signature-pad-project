@@ -23,6 +23,57 @@
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.button-accent {
+  font-weight: bolder;
+}
+
+.wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 1rem;
+}
+
+.error {
+  color: red;
+}
+
+.margin1 {
+  margin: 1rem;
+}
+.margin2 {
+  margin: 0.5rem;
+}
+.box-one {
+  border: 1px solid gray;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-content: center;
+  align-items: center;
+  padding: 1rem
+}
+
+.column {
+  display: flex;
+  flex-direction: column;  
+}
+
+.flex-center {
+  align-items: center;
+  align-content: center;
+  justify-content: center
 }

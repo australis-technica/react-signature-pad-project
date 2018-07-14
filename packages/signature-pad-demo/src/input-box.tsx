@@ -23,6 +23,7 @@ export default class InputBox extends Component<{
         <input          
           type={this.props.type}
           value={this.props.value}
+          checked={this.props.checked}
           min={this.props.min}
           max={this.props.max}
           step={this.props.step}

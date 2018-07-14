@@ -6,6 +6,7 @@ import appStore, { AppState } from "./app-store";
 import ImageSize from "./image-size";
 import api from "./api";
 import InputBox from "./input-box";
+import * as classNames from "classnames";
 
 const App =
   /** */
@@ -68,21 +69,20 @@ const App =
         <div className="App">
           <header className="App-header">
             <h1 className="App-title">Signature Pad Demo</h1>
-            <div style={{ color: "red" }}>{this.props.error}</div>
+            <div className="error">{this.props.error}</div>
           </header>
-          <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "space-around",
-              margin: "1rem"
-            }}
-          >
+          <div className="wrap">
             <InputBox
               label={"Show Signature"}
               type={"checkbox"}
               checked={showSignature}
               onChange={e => this.setState({ showSignature: e.target.checked })}
+            />
+            <InputBox
+              label={"Show Preview (scaled)"}
+              type={"checkbox"}
+              checked={this.props.showPreview}
+              onChange={e => this.setState({ showPreview: e.target.checked })}
             />
             <InputBox
               label={
@@ -161,46 +161,39 @@ const App =
               }
             />
 
-            <div style={{ margin: "1rem" }}>
-              <label style={{ margin: "0.5rem" }}>
+            <div className={classNames("margin1")}>
+              <label className={classNames("margin2")}>
                 Canvas Size {this.props.canvasWidth * this.props.canvasHeight}px
               </label>
             </div>
 
-            <div style={{ margin: "1rem" }}>
-              <label style={{ margin: "0.5rem" }}>
+            <div className={classNames("margin1")}>
+              <label className={classNames("margin2")}>
                 Desired Ratio {128 / 400}
               </label>
             </div>
 
-            <div style={{ margin: "1rem" }}>
-              <label style={{ margin: "0.5rem" }}>
+            <div className={classNames("margin1")}>
+              <label className={classNames("margin2")}>
                 Current Ratio {this.props.canvasHeight / this.props.canvasWidth}
               </label>
             </div>
 
             <div style={{ display: "flex", flexDirection: "column" }} />
-
-            <div style={{ margin: "0.5rem" }}>
-              <button children={"RESET"} onClick={this.resetState} />
-            </div>
-
-            <div style={{ margin: "0.5rem" }}>
-              <button style={{ fontWeight: "bolder" }} onClick={this.onSend}>
-                SEND
-              </button>
-            </div>
           </div>
-          <div
-            style={{
-              border: "1px solid gray",
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-around",
-              alignContent: "center",
-              alignItems: "center"
-            }}
-          >
+          <div className="row">
+            <button
+              className={classNames("margin2")}
+              children={"RESET"}
+              onClick={this.resetState}
+            />
+            <button
+              className={classNames("margin2", "button-accent")}
+              onClick={this.onSend}
+              children={"SEND"}
+            />
+          </div>
+          <div className={classNames("box-one")}>
             {showSignature && (
               <div style={{ border: "1px solid lightblue" }}>
                 <SignaturePad
@@ -213,31 +206,29 @@ const App =
                   backgroundColor={this.props.backgroundColor}
                   onStrokeEnd={this.onSignaturePadStrokeEnd}
                 />
+                <ImageSize id="image-src" imageSrc={this.props.imageSrc} />
               </div>
             )}
-            <div
-              style={{
-                border: "1px solid lightblue",
-                minWidth: this.props.canvasWidth * this.props.resizeRatio,
-                minHeight: this.props.canvasHeight * this.props.resizeRatio
-              }}
-            >
-              <img src={this.props.imageSrcScaled} />
-            </div>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-around",
-              margin: "1rem"
-            }}
-          >
-            <ImageSize id="image-src" imageSrc={this.props.imageSrc} />
-            <ImageSize id="image-src-scaled" imageSrc={this.props.imageSrcScaled} />
+            {this.props.showPreview && (
+              <div className={classNames("column")}>
+                <div className={classNames("column", "flex-center")}
+                  style={{
+                    border: "1px solid lightblue",
+                    width: this.props.canvasWidth,
+                    height: this.props.canvasHeight
+                  }}
+                >
+                  <img src={this.props.imageSrcScaled} />
+                </div>
+                <ImageSize
+                  id="image-src-scaled"
+                  imageSrc={this.props.imageSrcScaled}
+                />
+              </div>
+            )}
           </div>
 
-          <div style={{ fontSize: "14px" }}>
+          <div className={classNames("row", "margin1")} style={{ fontSize: "14px" }}>
             <span>
               <strong>ImageSrcResultID: </strong>
               {this.props.imageSrcResultID}

@@ -1,6 +1,8 @@
 import duckState from "./duck-state";
+/** */
 export type AppState = {
     showSignature: boolean;
+    showPreview: boolean;
     dotSizeMinWidth: number;
     dotSizeMaxWidth: number;
     dotSize: number;    
@@ -18,6 +20,7 @@ const initialSizeRatio = 1.5;
 // const desiredRatio = 128 / 400;
 const defautlState: AppState = {
     showSignature: true,
+    showPreview: true,
     dotSizeMinWidth: 0,
     dotSizeMaxWidth: 1.5,
     dotSize: 1,

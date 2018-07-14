@@ -7,6 +7,7 @@ import ImageSize from "./image-size";
 import api from "./api";
 import InputBox from "./input-box";
 import * as classNames from "classnames";
+import Preview from "./preview";
 
 const App =
   /** */
@@ -209,26 +210,26 @@ const App =
                 <ImageSize id="image-src" imageSrc={this.props.imageSrc} />
               </div>
             )}
-            {this.props.showPreview && (
-              <div className={classNames("column")}>
-                <div className={classNames("column", "flex-center")}
-                  style={{
-                    border: "1px solid lightblue",
-                    width: this.props.canvasWidth,
-                    height: this.props.canvasHeight
-                  }}
-                >
-                  <img src={this.props.imageSrcScaled} />
-                </div>
-                <ImageSize
-                  id="image-src-scaled"
-                  imageSrc={this.props.imageSrcScaled}
-                />
-              </div>
-            )}
+            <Preview
+              id="img-src-scaled"
+              show={this.props.showPreview}
+              width={this.props.canvasWidth}
+              height={this.props.canvasHeight}
+              imgSrc={this.props.imageSrcScaled}
+            />
+            <Preview
+              id="img-src-backend"
+              show={this.props.showPreview}
+              width={this.props.canvasWidth}
+              height={this.props.canvasHeight}
+              imgSrc={this.props.imageSrcScaled}
+            />
           </div>
 
-          <div className={classNames("row", "margin1")} style={{ fontSize: "14px" }}>
+          <div
+            className={classNames("row", "margin1")}
+            style={{ fontSize: "14px" }}
+          >
             <span>
               <strong>ImageSrcResultID: </strong>
               {this.props.imageSrcResultID}

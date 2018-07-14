@@ -1,9 +1,10 @@
 .input-box-root {
-    margin: 0.5rem
+  margin: 0.5rem;
 }
 .input-box-label {
-    margin: 0.5rem
+  margin: 0.5rem;
+  font-weight: lighter;
 }
 .input-box-input {
-    margin: 0.5rem
+  margin: 0.5rem;
 }

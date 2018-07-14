@@ -17,14 +17,14 @@ export default function ImageSize(props: { imageSrc: string; id: string }) {
     >
       <span>{id.toUpperCase()}:</span>
       <span>
-        Base64 Length <strong>{imageSrc.length}</strong>
+        Base64 Length {imageSrc.length} c
       </span>
       <span>
-        Byte Size <strong>{bytesLength}</strong>
+        Byte Size {bytesLength}
       </span>
-      <span>File Size <strong>{fileSize}</strong></span>
-      <span>File Size <strong>{sizeKB} KB</strong></span>
-      <span>File Size <strong>{sizeMB} MB</strong></span>
+      <span>File Size: {fileSize} b</span>
+      <span>File Size: {sizeKB} Kb</span>
+      <span>File Size: {sizeMB} Mb</span>
     </div>
   );
 }

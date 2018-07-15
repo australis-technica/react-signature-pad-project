@@ -1,5 +1,5 @@
 import * as React from "react";
-import { dataUrlSize } from "@australis/react-signature-pad";
+import { dataUrlSize } from "@australis/data-url-tools";
 
 export default function ImageSize(props: { imageSrc: string; id: string }) {
   const { imageSrc, id } = props;

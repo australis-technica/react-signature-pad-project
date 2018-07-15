@@ -2,6 +2,7 @@
   "lerna": "2.11.0",
   "packages": [    
     "packages/create-debug",
+    "packages/data-url-tools",
     "packages/react-signature-pad",
     "packages/signature-pad-demo",
     "packages/signature-pad-demo-backend"

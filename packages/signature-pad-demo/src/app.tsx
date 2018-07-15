@@ -1,6 +1,7 @@
 import * as React from "react";
 import "./app.css";
-import { SignaturePad, resizeDataUrl } from "@australis/react-signature-pad";
+import { SignaturePad } from "@australis/react-signature-pad";
+import { resizeToDataUrl } from "@australis/data-url-tools";
 import { Dispatch, Action } from "redux";
 import appStore, { AppState } from "./app-store";
 import ImageSize from "./image-size";
@@ -50,7 +51,7 @@ const App =
         this.setState({
           imageSrc
         });
-        const imageSrcScaled = await resizeDataUrl(
+        const imageSrcScaled = await resizeToDataUrl(
           imageSrc,
           this.props.resizeRatio
         );

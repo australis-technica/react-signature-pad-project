@@ -56,23 +56,23 @@ export default class SignaturePad extends React.Component<SignaturePadProps> {
     _lastDotVelocity: 0,
     _lastDotWidth: 0
   };
-  /** */
-  componentDidMount() {
-    this._canvas = this.refs.cv as HTMLCanvasElement;
+  onRef = (canvas: HTMLCanvasElement) => {
+    if (!canvas) return;
+    this._canvas = canvas;
     this._ctx = this._canvas.getContext("2d");
     this.clear();
     this._mouseButtonDown = false;
+    // Setup event Listeners
+    console.log("Setup Event Listeners");
     this._canvas.addEventListener("mousedown", this
       ._handleMouseDown as EventListener);
     this._canvas.addEventListener("mousemove", this
       ._handleMouseMove as EventListener);
     document.addEventListener("mouseup", this._handleMouseUp as EventListener);
     //
-    // if (this.props.zoomRatio < 0.1) {            window.addEventListener("resize", this._resizeCanvas.bind(this))        };
+    /** */
     // Pass touch events to canvas element on mobile IE.
     this._canvas.style.msTouchAction = "none";
-    // TOUCH
-    // TODO:  passive won't be set
     this._canvas.addEventListener("touchstart", this._handleTouchStart, {
       passive: passiveSupported
     });
@@ -81,9 +81,34 @@ export default class SignaturePad extends React.Component<SignaturePadProps> {
     });
     document.addEventListener("touchend", this._handleTouchEnd);
     this._resizeCanvas();
+  };
+  /** */
+  componentDidMount() {
+    // this._canvas = this.refs.cv as HTMLCanvasElement;
+    // this._ctx = this._canvas.getContext("2d");
+    // this.clear();
+    // this._mouseButtonDown = false;
+    // this._canvas.addEventListener("mousedown", this
+    //   ._handleMouseDown as EventListener);
+    // this._canvas.addEventListener("mousemove", this
+    //   ._handleMouseMove as EventListener);
+    // document.addEventListener("mouseup", this._handleMouseUp as EventListener);
+    // //
+    // /** */
+    // // Pass touch events to canvas element on mobile IE.
+    // this._canvas.style.msTouchAction = "none";
+    // this._canvas.addEventListener("touchstart", this._handleTouchStart, {
+    //   passive: passiveSupported
+    // });
+    // this._canvas.addEventListener("touchmove", this._handleTouchMove, {
+    //   passive: passiveSupported
+    // });
+    // document.addEventListener("touchend", this._handleTouchEnd);
+    // this._resizeCanvas();
   }
   /** */
   componentWillUnmount() {
+    console.log("remove event listeners");
     this._canvas.removeEventListener("mousedown", this
       ._handleMouseDown as EventListener);
     this._canvas.removeEventListener(
@@ -95,6 +120,10 @@ export default class SignaturePad extends React.Component<SignaturePadProps> {
     this._canvas.removeEventListener("touchstart", this._handleTouchStart);
     this._canvas.removeEventListener("touchmove", this._handleTouchMove);
     document.removeEventListener("touchend", this._handleTouchEnd);
+    /**
+     * DO NOT resize canvas on windows resize
+     * or we need to translate mouse coodinates too
+     */
     // window.removeEventListener("resize", this._resizeCanvas);
   }
   /** */
@@ -360,6 +389,6 @@ export default class SignaturePad extends React.Component<SignaturePadProps> {
       height: this.props.canvasHeight,
       backgroundColor: this.props.backgroundColor
     };
-    return <canvas style={style} ref="cv" />;
+    return <canvas style={style} ref={this.onRef} />;
   }
 }

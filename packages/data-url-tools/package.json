@@ -1,7 +1,7 @@
 {
   "name": "@australis/data-url-tools",
   "version": "1.0.0-1",
-  "description": "",
+  "description": "Data url tools (browser)",
   "private": true,
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -14,7 +14,7 @@
   },
   "keywords": [],
   "author": "daniel@australis-technica.com",
-  "license": "MIT",  
+  "license": "MIT",
   "jest": {
     "globals": {
       "ts-jest": {
@@ -34,10 +34,20 @@
       "node"
     ]
   },
-  "dependencies": {
-    
-  },
-  "devDependencies": {    
+  "dependencies": {},
+  "devDependencies": {
     "typescript": "2.9.2"
-  }
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/australis-technica/react-signature-pad-project.git"
+  },
+  "bugs": {
+    "url": "https://github.com/australis-technica/react-signature-pad-project/issues"
+  },
+  "homepage": "https://github.com/australis-technica/react-signature-pad-project#readme"
 }

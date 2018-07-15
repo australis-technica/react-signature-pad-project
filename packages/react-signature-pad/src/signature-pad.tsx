@@ -3,8 +3,8 @@
  * */
 import * as React from "react";
 import Bezier from "./bezier";
-import checkWindowPassive from "./check-window-passive";
 import Point from "./point";
+import passiveSupported from "./passive-supported";
 /** */
 export type SignaturePadProps = {
   dotSizeMinWidth?: number;
@@ -31,7 +31,7 @@ export type SignaturePadProps = {
 };
 /** */
 type SignaturePadState = {
-  windowPassive: boolean;
+  
 };
 /** */
 type DrawingState = {
@@ -71,15 +71,14 @@ export default class SignaturePad extends React.Component<SignaturePadProps> {
     // Pass touch events to canvas element on mobile IE.
     this._canvas.style.msTouchAction = "none";
     // TOUCH
-    // TODO:  passive won't be set
+    // TODO:  passive won't be set    
     this._canvas.addEventListener("touchstart", this._handleTouchStart, {
-      passive: this.state.windowPassive
+      passive: passiveSupported
     });
     this._canvas.addEventListener("touchmove", this._handleTouchMove, {
-      passive: this.state.windowPassive
+      passive: passiveSupported
     });
     document.addEventListener("touchend", this._handleTouchEnd);
-    checkWindowPassive(window, () => this.setState({ windowPassive: true }));
     this._resizeCanvas();
   }
   /** */

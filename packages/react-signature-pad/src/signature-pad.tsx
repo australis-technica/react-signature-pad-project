@@ -30,9 +30,7 @@ export type SignaturePadProps = {
   dotSize?: number;
 };
 /** */
-type SignaturePadState = {
-  
-};
+type SignaturePadState = {};
 /** */
 type DrawingState = {
   points: Point[];
@@ -48,9 +46,9 @@ export default class SignaturePad extends React.Component<SignaturePadProps> {
   _canvas: HTMLCanvasElement;
   _ctx?: CanvasRenderingContext2D | null;
   _mouseButtonDown = false;
-
+  /** */
   state: SignaturePadState = {
-    windowPassive: false
+    // ...
   };
   /** */
   drawingState: DrawingState = {
@@ -58,20 +56,23 @@ export default class SignaturePad extends React.Component<SignaturePadProps> {
     _lastDotVelocity: 0,
     _lastDotWidth: 0
   };
+  /** */
   componentDidMount() {
     this._canvas = this.refs.cv as HTMLCanvasElement;
     this._ctx = this._canvas.getContext("2d");
     this.clear();
     this._mouseButtonDown = false;
-    this._canvas.addEventListener("mousedown", this._handleMouseDown as EventListener);
-    this._canvas.addEventListener("mousemove", this._handleMouseMove as EventListener);
+    this._canvas.addEventListener("mousedown", this
+      ._handleMouseDown as EventListener);
+    this._canvas.addEventListener("mousemove", this
+      ._handleMouseMove as EventListener);
     document.addEventListener("mouseup", this._handleMouseUp as EventListener);
     //
     // if (this.props.zoomRatio < 0.1) {            window.addEventListener("resize", this._resizeCanvas.bind(this))        };
     // Pass touch events to canvas element on mobile IE.
     this._canvas.style.msTouchAction = "none";
     // TOUCH
-    // TODO:  passive won't be set    
+    // TODO:  passive won't be set
     this._canvas.addEventListener("touchstart", this._handleTouchStart, {
       passive: passiveSupported
     });
@@ -83,9 +84,14 @@ export default class SignaturePad extends React.Component<SignaturePadProps> {
   }
   /** */
   componentWillUnmount() {
-    this._canvas.removeEventListener("mousedown", this._handleMouseDown as EventListener);
-    this._canvas.removeEventListener("mousemove", this._handleMouseMove.bind(this));
-    document.removeEventListener("mouseup", this._handleMouseUp as EventListener);
+    this._canvas.removeEventListener("mousedown", this
+      ._handleMouseDown as EventListener);
+    this._canvas.removeEventListener(
+      "mousemove",
+      this._handleMouseMove.bind(this)
+    );
+    document.removeEventListener("mouseup", this
+      ._handleMouseUp as EventListener);
     this._canvas.removeEventListener("touchstart", this._handleTouchStart);
     this._canvas.removeEventListener("touchmove", this._handleTouchMove);
     document.removeEventListener("touchend", this._handleTouchEnd);
@@ -104,7 +110,6 @@ export default class SignaturePad extends React.Component<SignaturePadProps> {
     this._ctx.fillRect(0, 0, canvas.width, canvas.height);
     this._reset();
   }
-
   /**
    * Returns the content of the current canvas as an image that you can use as a source for another canvas or an HTML element.
    * @param type The standard MIME type for the image format to return. If you do not specify this parameter, the default value is a PNG format image.
@@ -112,7 +117,6 @@ export default class SignaturePad extends React.Component<SignaturePadProps> {
   toDataURL = (type?: any, ...args: any[]) => {
     return this._canvas.toDataURL(type, args);
   };
-
   /** */
   _isEmpty: boolean;
   /** */
@@ -146,7 +150,6 @@ export default class SignaturePad extends React.Component<SignaturePadProps> {
     this._ctx.fillStyle = this.props.penColor;
     // this._ctx.scale(0.5, 0.5);
   };
-
   /** */
   _handleMouseDown = (event: TouchEvent) => {
     if (event.which === 1) {

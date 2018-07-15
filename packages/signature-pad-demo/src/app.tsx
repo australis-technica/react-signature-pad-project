@@ -117,13 +117,17 @@ const App =
               label={"imageSrcScaled"}
               type={"checkbox"}
               checked={this.props.imageSrcScaledShow}
-              onChange={e => this.setState({ imageSrcScaledShow: e.target.checked })}
+              onChange={e =>
+                this.setState({ imageSrcScaledShow: e.target.checked })
+              }
             />
             <InputBox
               label={"imageSrcResultImgShow"}
               type={"checkbox"}
               checked={this.props.imageSrcResultImgShow}
-              onChange={e => this.setState({ imageSrcResultImgShow: e.target.checked })}
+              onChange={e =>
+                this.setState({ imageSrcResultImgShow: e.target.checked })
+              }
             />
             <InputBox
               label={
@@ -204,12 +208,6 @@ const App =
 
             <div className={classNames("margin1")}>
               <label className={classNames("margin2")}>
-                Canvas Size {this.props.canvasWidth * this.props.canvasHeight}px
-              </label>
-            </div>
-
-            <div className={classNames("margin1")}>
-              <label className={classNames("margin2")}>
                 Desired Ratio {128 / 400}
               </label>
             </div>
@@ -255,6 +253,13 @@ const App =
                   onStrokeEnd={this.onSignaturePadStrokeEnd}
                 />
                 <ImageSize id="image-src" imageSrc={this.props.imageSrc} />
+                <div className={classNames("margin1")}>
+                  <label className={classNames("margin2")}>
+                    Canvas: {this.props.canvasWidth}px *{" "}
+                    {this.props.canvasHeight}px ={" "}
+                    {this.props.canvasWidth * this.props.canvasHeight}px
+                  </label>
+                </div>
               </div>
             )}
             <Preview

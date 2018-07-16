@@ -64,6 +64,10 @@
   justify-content: center;
 }
 
+.full-width {
+  width: 100vw
+}
+
 .margin1 {
   margin: 1rem;
 }
@@ -83,8 +87,7 @@
 .wrap {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
-  margin: 1rem;
+  justify-content: space-around;  
 }
 
 @keyframes App-logo-spin {

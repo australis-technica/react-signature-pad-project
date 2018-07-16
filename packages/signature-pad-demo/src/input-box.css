@@ -1,5 +1,7 @@
 .input-box-root {
   margin: 0.5rem;
+  display: flex;
+  flex-direction: column;
 }
 .input-box-label {
   margin: 0.5rem;
@@ -7,4 +9,12 @@
 }
 .input-box-input {
   margin: 0.5rem;
+}
+.input-row {
+  display: flex;
+  flex-direction: row;
+}
+.input-box-helper {
+  color: orange;
+  font-size: 0.8rem;
 }

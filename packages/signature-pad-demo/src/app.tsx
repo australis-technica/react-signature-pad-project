@@ -90,11 +90,11 @@ const App =
     /** from ref */
     signaturePad: SignaturePad;
     /** Signature pad ref callback */
-    onSignaturePadRef = (x: any)=> this.signaturePad = x;
+    onSignaturePadRef = (x: any) => (this.signaturePad = x);
     /** */
-    clearSignature = ()=> {
+    clearSignature = () => {
       this.signaturePad.clear();
-    }
+    };
     /** */
     public render() {
       const { showSignature } = this.props;
@@ -116,143 +116,164 @@ const App =
             </div>
           </header>
           <div className="wrap">
-            <InputBox
-              label={"Show Signature"}
-              type={"checkbox"}
-              checked={showSignature}
-              onChange={e => this.setState({ showSignature: e.target.checked })}
-            />
-            <InputBox
-              label={"imageSrcScaled"}
-              type={"checkbox"}
-              checked={this.props.imageSrcScaledShow}
-              onChange={e =>
-                this.setState({ imageSrcScaledShow: e.target.checked })
-              }
-            />
-            <InputBox
-              label={"imageSrcResultImgShow"}
-              type={"checkbox"}
-              checked={this.props.imageSrcResultImgShow}
-              onChange={e =>
-                this.setState({ imageSrcResultImgShow: e.target.checked })
-              }
-            />
-            <InputBox
-              label={
-                <span>
-                  Dot Size {this.props.dotSize <= 0.01 ? " (velocity)" : "px"}
-                </span>
-              }
-              min={0}
-              max={5}
-              step={0.1}
-              type="number"
-              value={this.props.dotSize}
-              onChange={e => this.setState({ dotSize: Number(e.target.value) })}
-            />
-            <InputBox
-              label="Dot Min Width (not-working-yet)"
-              value={this.props.dotSizeMinWidth}
-              type="number"
-              min={0}
-              max={1.5}
-              step={0.1}
-              onChange={e =>
-                this.setState({ dotSizeMinWidth: Number(e.target.value) })
-              }
-            />
-            <InputBox
-              label="Dot Max Width (not-working-yet)"
-              type="number"
-              value={this.props.dotSizeMaxWidth}
-              min={0}
-              max={1.5}
-              step={0.1}
-              onChange={e =>
-                this.setState({ dotSizeMaxWidth: Number(e.target.value) })
-              }
-            />
-            <InputBox
-              type="text"
-              label="Pen Color"
-              value={this.props.penColor}
-              onChange={e => this.setState({ penColor: e.target.value })}
-            />
-            <InputBox
-              type="text"
-              label="Canvas Color"
-              value={this.props.canvasColor}
-              onChange={e => this.setState({ canvasColor: e.target.value })}
-            />
-            <InputBox
-              label="canvas width"
-              type="number"
-              min={1}
-              max={128}
-              step={1}
-              value={this.props.canvasWidth}
-              onChange={e =>
-                this.setState({ canvasWidth: Number(e.target.value) })
-              }
-            />
-
-            <InputBox
-              label={"Canvas Height"}
-              type="number"
-              min={1}
-              max={128}
-              step={1}
-              value={this.props.canvasHeight}
-              onChange={e =>
-                this.setState({ canvasHeight: Number(e.target.value) })
-              }
-            />
-
-            <InputBox
-              label={"Resize Ratio"}
-              type="number"
-              min={0.1}
-              max={10}
-              step={0.1}
-              value={this.props.resizeRatio}
-              onChange={e =>
-                this.setState({ resizeRatio: Number(e.target.value) })
-              }
-            />
-
-            <div className={classNames("margin1")}>
-              <label className={classNames("margin2")}>
-                Desired Ratio {128 / 400}
-              </label>
+          <div className={classNames("wrap", "full-width", "margin1")}>
+              <InputBox
+                label={"Show Signature"}
+                type={"checkbox"}
+                checked={showSignature}
+                onChange={e =>
+                  this.setState({ showSignature: e.target.checked })
+                }
+              />
+              <InputBox
+                label={"imageSrcScaled"}
+                type={"checkbox"}
+                checked={this.props.imageSrcScaledShow}
+                onChange={e =>
+                  this.setState({ imageSrcScaledShow: e.target.checked })
+                }
+              />
+              <InputBox
+                label={"imageSrcResultImgShow"}
+                type={"checkbox"}
+                checked={this.props.imageSrcResultImgShow}
+                onChange={e =>
+                  this.setState({ imageSrcResultImgShow: e.target.checked })
+                }
+              />
             </div>
-
-            <div className={classNames("margin1")}>
-              <label className={classNames("margin2")}>
-                Current Ratio {this.props.canvasHeight / this.props.canvasWidth}
-              </label>
+            <div className={classNames("wrap", "full-width", "margin1")}>
+              <InputBox
+                label="Dot Size"
+                min={0}
+                max={5}
+                step={0.1}
+                type="number"
+                value={this.props.dotSize}
+                onChange={e =>
+                  this.setState({ dotSize: Number(e.target.value) })
+                }
+                unit="px"
+                helper="0 (zero) velocity"
+              />
+              <InputBox
+                label="Dot Min Width"
+                value={this.props.dotSizeMinWidth}
+                type="number"
+                min={0}
+                max={1.5}
+                step={0.1}
+                onChange={e =>
+                  this.setState({ dotSizeMinWidth: Number(e.target.value) })
+                }
+                unit="px"
+                helper="(not-working-yet)"
+              />
+              <InputBox
+                label="Dot Max Width"
+                type="number"
+                value={this.props.dotSizeMaxWidth}
+                min={0}
+                max={1.5}
+                step={0.1}
+                onChange={e =>
+                  this.setState({ dotSizeMaxWidth: Number(e.target.value) })
+                }
+                unit="px"
+                helper="(not-working-yet)"
+              />
             </div>
-
-            <div style={{ display: "flex", flexDirection: "column" }} />
+            <div className={classNames("wrap", "full-width", "margin1")}>
+              <InputBox
+                type="text"
+                label="Pen Color"
+                value={this.props.penColor}
+                onChange={e => this.setState({ penColor: e.target.value })}
+                helper="CSS color"
+              />
+              <InputBox
+                type="text"
+                label="Canvas Color"
+                value={this.props.canvasColor}
+                onChange={e => this.setState({ canvasColor: e.target.value })}                
+                helper="CSS color"
+              />
+            </div>
+            <div className={classNames("wrap", "full-width", "margin1")}>
+              <InputBox
+                label="canvas width"
+                type="number"
+                min={1}
+                max={128}
+                step={1}
+                value={this.props.canvasWidth}
+                onChange={e =>
+                  this.setState({ canvasWidth: Number(e.target.value) })
+                }
+                unit="px"
+                helper="Shouldn't change while drawing"
+              />
+              <InputBox
+                label={"Canvas Height"}
+                type="number"
+                min={1}
+                max={128}
+                step={1}
+                value={this.props.canvasHeight}
+                onChange={e =>
+                  this.setState({ canvasHeight: Number(e.target.value) })
+                }
+                unit="px"
+                helper="Shouldn't change while drawing"
+              />
+            </div>
+            <div className={classNames("wrap", "full-width", "margin1")}>
+              <InputBox
+                label={"Resize Ratio"}
+                type="number"
+                min={0.1}
+                max={10}
+                step={0.1}
+                value={this.props.resizeRatio}
+                onChange={e =>
+                  this.setState({ resizeRatio: Number(e.target.value) })
+                }
+              />
+              <div className={classNames("margin1")}>
+                <label className={classNames("margin2")}>
+                  Desired Ratio {128 / 400}
+                </label>
+              </div>
+              <div className={classNames("margin1")}>
+                <label className={classNames("margin2")}>
+                  Current Ratio{" "}
+                  {this.props.canvasHeight / this.props.canvasWidth}
+                </label>
+              </div>
+            </div>
           </div>
           <div className="row">
             <button
+              title="Reset default parameters"
               className={classNames("button", "margin2")}
-              children={"reset defaults"}
+              children={"reset"}
               onClick={this.resetState}
             />
             <button
+              title="reset canvas"
               className={classNames("button", "margin2")}
               children={"clear"}
               onClick={this.clearSignature}
             />
             <button
+              title="send to backend"
               className={classNames("button ", "button-accent", "margin2")}
               onClick={this.onSend}
               children={"send"}
               disabled={!isStringNotEmpty(this.props.imageSrcScaled)}
             />
             <button
+              title={`get ${this.props.imageSrcResultID} from backend`}
               className={classNames("button ", "button-accent", "margin2")}
               onClick={this.onGet}
               children={"get"}

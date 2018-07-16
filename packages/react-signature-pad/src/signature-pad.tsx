@@ -1,6 +1,9 @@
 /*
- * original: https://github.com/blackjk3/react-signature-pad/blob/master/src/index.js 
- * */
+ * 
+ * original credits to: 
+ * https://github.com/blackjk3/react-signature-pad/blob/master/src/index.js  
+ * 
+ */
 import * as React from "react";
 import Bezier from "./bezier";
 import Point from "./point";
@@ -16,8 +19,9 @@ export type SignaturePadProps = {
    * "rgba(0,0,0,0)"
    */
   backgroundColor?: string;
-  // clearButton?: boolean;
+  /** */  
   onStrokeBegin?(e: HTMLCanvasElement): any;
+  /** */
   onStrokeEnd?(e: HTMLCanvasElement): any;
   /**
    * Canvas
@@ -28,9 +32,13 @@ export type SignaturePadProps = {
    * if dotSize number use dotSize and disable speed sensitivity  , else calculate dotSize
    */
   dotSize?: number;
+  /** */
+  className?: string;
 };
 /** */
-type SignaturePadState = {};
+type SignaturePadState = {
+  // ...
+};
 /** */
 type DrawingState = {
   points: Point[];
@@ -343,7 +351,7 @@ export default class SignaturePad extends React.Component<SignaturePadProps> {
     return Math.max(this.strokeMaxWidth / (velocity + 1), this.strokeMinWidth);
   }
   /**
-   *
+   * 
    */
   render() {
     const style: React.CSSProperties = {
@@ -351,6 +359,6 @@ export default class SignaturePad extends React.Component<SignaturePadProps> {
       height: this.props.canvasHeight,
       backgroundColor: this.props.backgroundColor
     };
-    return <canvas style={style} ref="cv" />;
+    return <canvas className={this.props.className} style={style} ref="cv" />;
   }
 }

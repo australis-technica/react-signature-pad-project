@@ -87,6 +87,14 @@ const App =
     resetState = () => {
       this.dispatch(appStore.resetState());
     };
+    /** from ref */
+    signaturePad: SignaturePad;
+    /** Signature pad ref callback */
+    onSignaturePadRef = (x: any)=> this.signaturePad = x;
+    /** */
+    clearSignature = ()=> {
+      this.signaturePad.clear();
+    }
     /** */
     public render() {
       const { showSignature } = this.props;
@@ -172,6 +180,12 @@ const App =
               onChange={e => this.setState({ penColor: e.target.value })}
             />
             <InputBox
+              type="text"
+              label="Canvas Color"
+              value={this.props.canvasColor}
+              onChange={e => this.setState({ canvasColor: e.target.value })}
+            />
+            <InputBox
               label="canvas width"
               type="number"
               min={1}
@@ -224,8 +238,13 @@ const App =
           <div className="row">
             <button
               className={classNames("button", "margin2")}
-              children={"reset"}
+              children={"reset defaults"}
               onClick={this.resetState}
+            />
+            <button
+              className={classNames("button", "margin2")}
+              children={"clear"}
+              onClick={this.clearSignature}
             />
             <button
               className={classNames("button ", "button-accent", "margin2")}
@@ -244,13 +263,14 @@ const App =
             {showSignature && (
               <div style={{ border: "1px solid lightblue" }}>
                 <SignaturePad
+                  ref={this.onSignaturePadRef}
                   dotSize={this.props.dotSize}
                   penColor={this.props.penColor}
                   dotSizeMaxWidth={this.props.dotSizeMaxWidth}
                   dotSizeMinWidth={this.props.dotSizeMinWidth}
                   canvasWidth={this.props.canvasWidth}
                   canvasHeight={this.props.canvasHeight}
-                  backgroundColor={this.props.backgroundColor}
+                  backgroundColor={this.props.canvasColor}
                   onStrokeEnd={this.onSignaturePadStrokeEnd}
                 />
                 <ImageSize id="image-src" imageSrc={this.props.imageSrc} />

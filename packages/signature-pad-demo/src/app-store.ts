@@ -7,7 +7,7 @@ export type AppState = {
   dotSizeMaxWidth: number;
   dotSize: number;
   penColor: string;
-  backgroundColor: string;
+  canvasColor: string;
   canvasWidth: number;
   canvasHeight: number;
   resizeRatio: number;
@@ -28,7 +28,7 @@ const defautlState: AppState = {
   dotSizeMaxWidth: 1.5,
   dotSize: 1,
   penColor: "blue",
-  backgroundColor: "pink", // "rgba(21, 208, 61, 0)",
+  canvasColor: "pink", // "rgba(21, 208, 61, 0)",
   canvasWidth: 128 * initialSizeRatio,
   canvasHeight: 64 * initialSizeRatio,
   resizeRatio: 0.5,

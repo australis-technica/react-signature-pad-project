@@ -118,12 +118,6 @@ export default class SignaturePad extends React.Component<SignaturePadProps> {
     return this._canvas.toDataURL(type, args);
   };
   /** */
-  _isEmpty: boolean;
-  /** */
-  isEmpty() {
-    return this._isEmpty;
-  }
-  /** */
   _resizeCanvas() {
     let ctx = this._ctx;
     let canvas = this._canvas;
@@ -134,7 +128,6 @@ export default class SignaturePad extends React.Component<SignaturePadProps> {
     canvas.width = canvas.offsetWidth * ratio;
     canvas.height = canvas.offsetHeight * ratio;
     ctx.scale(ratio, ratio);
-    this._isEmpty = true;
   }
   /** */
   _reset = () => {
@@ -144,7 +137,6 @@ export default class SignaturePad extends React.Component<SignaturePadProps> {
       _lastDotVelocity: 0,
       _lastDotWidth: this._strokeWidth(0)
     };
-    this._isEmpty = true;
     this._ctx.strokeStyle = this.props.penColor || "black";
     this._ctx.strokeRect(1, 1, 1, 1);
     this._ctx.fillStyle = this.props.penColor;
@@ -302,7 +294,6 @@ export default class SignaturePad extends React.Component<SignaturePadProps> {
     let ctx = this._ctx;
     ctx.moveTo(x, y);
     ctx.arc(x, y, size, 0, 2 * Math.PI, false);
-    this._isEmpty = false;
   }
   /** */
   _drawCurve(curve: Bezier, startWidth: number, endWidth: number) {

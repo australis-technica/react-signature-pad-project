@@ -2,7 +2,7 @@
   "name": "@australis/data-url-tools",
   "version": "1.0.0-1",
   "description": "Data url tools (browser)",
-  "private": true,
+  "private": false,
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {

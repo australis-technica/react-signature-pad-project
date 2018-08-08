@@ -10,7 +10,8 @@
     "build": "lerna --no-sort run build",
     "clean": "lerna --no-sort run clean",
     "rebuild": "lerna --no-sort run build",
-    "clean-modules": "rm node_modules -rf && rm yarn.lock && yarn"
+    "clean-modules": "rm node_modules -rf && rm yarn.lock && yarn",
+    "serve": "cd packages/signature-pad-demo-backend && node app"
   },
   "keywords": [],
   "author": "daniel@australis-technica.com",

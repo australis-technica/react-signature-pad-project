@@ -1,7 +1,7 @@
 import { execSql as ExecSql } from "@australis/tiny-sql";
 import { Connection } from "tedious";
 import { ImageDto } from "./types";
-import { ensureBuffer } from "./util";
+import { ensureBuffer } from "./ensure-buffer";
 import { debugModule } from "@australis/create-debug";
 import { TABLENAME } from "./constants";
 // ...

@@ -1,7 +1,9 @@
-import dataUrlToBuffer from "@australis/data-url-to-buffer";
+import { dataUrlToBuffer } from "../../img"
 import { ImageDto } from "./types";
-/** */
-export function ensureBuffer(imageDto: ImageDto) {
+/** 
+ * ImageDto with img: string to ImageDto with img as Buffer
+ */
+export function ensureBuffer(imageDto: ImageDto): ImageDto {
     const { img, ...dto } = imageDto;
     if (typeof img === "string") {
         return {

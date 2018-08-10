@@ -27,7 +27,7 @@ with the following schema: (see tedious/Connection)
         "password": "sqlpassword",
         "port": 1433,
         "options": {
-            "encrypt": false,
+            "encrypt": false, // optional
             // db must exists!
             "database": "react_signature_pad_demo" // any db_name you like
         }

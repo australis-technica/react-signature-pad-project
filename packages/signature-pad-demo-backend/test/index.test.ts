@@ -1,6 +1,6 @@
 import "../src/env";
 import connect from "../src/sql-connection";
-import { Connection } from "tedious";
+import { Connection, Request, TYPES } from "tedious";
 import repos from "../src/repos";
 import uuid from "node-uuid";
 import { readFileSync, writeFileSync } from "fs";
@@ -35,4 +35,73 @@ describe("data-utl-to-buffer", () => {
             connection && connection.close();
         }
     });
+
+    it("works again / straight tedious / no abstraction", async () => {
+        const img = dataUrlToBuffer(dataUrl);
+        let connection: Connection;
+        try {
+            connection = await connect();
+
+            await new Promise((resolve, reject) => {
+                const request = new Request(`
+            INSERT INTO IMAGES (id, img) VALUES ( NEWID(), @img)
+        `, (error, rowCount, rows) => {
+                        if (error) return reject(error);
+                        resolve();
+                    });
+                /** */
+                request.addParameter(/*name:*/ "img", /*type:*/ TYPES.VarBinary, img, {
+                    length: "max"
+                });
+                connection.execSql(request);
+            })
+        } catch (error) {
+            // debug it
+            throw error;
+        } finally {
+            connection && connection.close();
+        }
+    });
+
+    it("adds 512px data-url", async () => {
+        const imgName = "baseline_android_black_512px";
+        let connection: Connection;
+        try {
+            connection = await connect();
+            const img = readFileSync(join(__dirname, `${imgName}.data-url`), "utf8");
+            const id = uuid.v1();
+            await repos.images.addImage(connection, id, img);
+            const x = await repos.images.get(connection, id);
+            // todo: 
+            writeFileSync(
+                join(__dirname, `${imgName}.out.data-url`),
+                "data:image/png;base64," + (x.img as Buffer).toString("base64")
+            );
+        } catch (error) {
+            throw error;
+        } finally {
+            connection && connection.close(); ``
+        }
+    })
+
+    it("adds 1024px data-url", async () => {
+        const imgName = "baseline_android_black_1024px";
+        let connection: Connection;
+        try {
+            connection = await connect();
+            const img = readFileSync(join(__dirname, `${imgName}.data-url`), "utf8");
+            const id = uuid.v1();
+            await repos.images.addImage(connection, id, img);
+            const x = await repos.images.get(connection, id);
+            // todo: 
+            writeFileSync(
+                join(__dirname, `${imgName}.out.data-url`),
+                "data:image/png;base64," + (x.img as Buffer).toString("base64")
+            );
+        } catch (error) {
+            throw error;
+        } finally {
+            connection && connection.close(); ``
+        }
+    })
 })

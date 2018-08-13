@@ -8,7 +8,7 @@ import { join } from "path";
 const dataUrl = readFileSync(join(__dirname, "baseline_android_black_48dp.data-url"), "utf8");
 import dataUrlToBuffer from "../src/img/data-url-to-buffer";
 /**
- * 
+ * TODO: to-data-url: http://dataurl.net/#dataurlmaker
  */
 describe("data-utl-to-buffer", () => {
     /** */

@@ -7,7 +7,7 @@
 import * as React from "react";
 import Bezier from "./bezier";
 import Point from "./point";
-import passiveSupported from "./passive-supported";
+// import passiveSupported from "./passive-supported";
 /** */
 export type SignaturePadProps = {
   dotSizeMinWidth?: number;
@@ -79,13 +79,12 @@ export default class SignaturePad extends React.Component<SignaturePadProps> {
     // if (this.props.zoomRatio < 0.1) {            window.addEventListener("resize", this._resizeCanvas.bind(this))        };
     // Pass touch events to canvas element on mobile IE.
     this._canvas.style.msTouchAction = "none";
-    // TOUCH
-    // TODO:  passive won't be set
+    // TOUCH    
     this._canvas.addEventListener("touchstart", this._handleTouchStart, {
-      passive: passiveSupported
+      passive: false // conflicts with prevent-default, Unable to preventDefault inside passive event listener invocation.
     });
     this._canvas.addEventListener("touchmove", this._handleTouchMove, {
-      passive: passiveSupported
+      passive: false
     });
     document.addEventListener("touchend", this._handleTouchEnd);
     this._resizeCanvas();
@@ -151,7 +150,7 @@ export default class SignaturePad extends React.Component<SignaturePadProps> {
     // this._ctx.scale(0.5, 0.5);
   };
   /** */
-  _handleMouseDown = (event: TouchEvent) => {
+  _handleMouseDown = (event: TouchEvent|any) => {
     if (event.which === 1) {
       this._mouseButtonDown = true;
       this._strokeBegin(event);
@@ -164,7 +163,7 @@ export default class SignaturePad extends React.Component<SignaturePadProps> {
     }
   };
 
-  _handleMouseUp = (event: TouchEvent) => {
+  _handleMouseUp = (event: TouchEvent|any) => {
     if (event.which === 1 && this._mouseButtonDown) {
       this._mouseButtonDown = false;
       this._strokeEnd();
